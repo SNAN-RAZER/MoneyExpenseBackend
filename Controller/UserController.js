@@ -214,6 +214,7 @@ async function editExpense(req,res){
   //checking if the mmodification is afer 12 hours
 
   let hourDifference=Math.abs(userDate-Date.now())/(60*60*1000)
+  console.log(hourDifference);
   if(hourDifference<=12){
   const editExpense = await dbModel.updateOne(
     {email:data.email,"expense.id":id},
@@ -253,7 +254,7 @@ async function editIncome(req,res){
     if(hourDifference<=12){
     const editIncome = await dbModel.updateOne(
       {email:data.email,"income.id":id},
-      {$set:{"income.$.value":data.value,"expense.$.date":Date.now()}}
+      {$set:{"income.$.value":data.value,"income.$.date":Date.now()}}
     )
     if(!editIncome) return res.status(404).send("Error  while editing");
     res.send(
