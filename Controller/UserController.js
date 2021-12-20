@@ -213,8 +213,7 @@ async function editExpense(req,res){
 
   //checking if the mmodification is afer 12 hours
 
-  let hourDifference=Math.abs(userDate-Date.now())/(60*60*1000)
-  console.log(hourDifference);
+  
   if(hourDifference<=12){
   const editExpense = await dbModel.updateOne(
     {email:data.email,"expense.id":id},

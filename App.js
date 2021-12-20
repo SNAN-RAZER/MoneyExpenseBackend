@@ -28,4 +28,4 @@ app.use(express.json());
 //routes middlwware
 app.use('/user/',authRoute);
 
-app.listen(3000,()=>console.log('Server up and runnning'));
+app.listen(process.env.PORT,()=>console.log('Server up and runnning'));
