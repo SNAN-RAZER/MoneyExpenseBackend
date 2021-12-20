@@ -64,7 +64,10 @@ async function register(req,res){
     //email exists
     const emailExists = await dbModel.findOne({email:data.email});
     if(emailExists){
-        return res.status(400).send('Email already exists');
+        return res.status(400).send({
+          newUser:false,
+          messsage:"Email already exists"
+        });
     }
 
     //hashng password
@@ -214,7 +217,7 @@ async function editExpense(req,res){
   if(hourDifference<=12){
   const editExpense = await dbModel.updateOne(
     {email:data.email,"expense.id":id},
-    {$set:{"expense.$.value":data.value}}
+    {$set:{"expense.$.value":data.value,"expense.$.date":Date.now()}}
   )
   if(!editExpense) return res.status(404).send("Error  while editing");
   res.send(
@@ -250,7 +253,7 @@ async function editIncome(req,res){
     if(hourDifference<=12){
     const editIncome = await dbModel.updateOne(
       {email:data.email,"income.id":id},
-      {$set:{"income.$.value":data.value}}
+      {$set:{"income.$.value":data.value,"expense.$.date":Date.now()}}
     )
     if(!editIncome) return res.status(404).send("Error  while editing");
     res.send(
