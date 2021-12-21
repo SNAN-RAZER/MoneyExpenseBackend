@@ -25,11 +25,17 @@ async function login(req,res){
     //check if email exists
     const user = await dbModel.findOne({email:data.email})
     if(!user){
-      return   res.status(404).send('Email or password is wrong');
+      return   res.status(404).send({
+        error:true,
+        message:"Invalid username and password"
+      });
     }
     //password validation
     const validPass = await bcrypt.compare(data.password,user.password);
-    if(!validPass) return res.status(404).send("invalid password");
+    if(!validPass) return res.status(404).send({
+      error:true,
+      message:"Invalid username and password"
+    });
     
 
     //create a token
@@ -41,9 +47,12 @@ async function login(req,res){
         name:user.name,
         id:user._id,
         income:user.Income,
-        expense:user.expense
+        expense:user.expense,
+        error:false
     }
+    console.log(userData)
     res.header('auth-token',token).send(userData);
+    
 }
 
 

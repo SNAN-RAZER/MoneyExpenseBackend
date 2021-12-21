@@ -1,8 +1,10 @@
 const router  = require('express').Router();
 const  verify = require('../routes/ValidationOfToken');
-
+var cors= require('cors')
 //Importing Controller
 const controller = require('../Controller/UserController');
+
+//cors
 
 
 //Regiter
