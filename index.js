@@ -22,6 +22,10 @@ var corsOptions = {
   }
 
 const app=express();
+app.get('/cors', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send({ "msg": "This has CORS enabled 🎈" })
+    })
 app.use(cors({origin: 'http://localhost:3000'}));;
 
 //Middle Ware
